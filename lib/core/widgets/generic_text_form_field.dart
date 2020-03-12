@@ -15,6 +15,7 @@ class GenericTextFormField extends StatelessWidget {
     this.icon,
     this.hint,
     this.isBusy = false,
+    this.validator,
   });
 
   final TextEditingController editingController;
@@ -25,6 +26,7 @@ class GenericTextFormField extends StatelessWidget {
   final bool isRequired;
   final bool obscureText;
   final bool isBusy;
+  final Function(String) validator;
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +43,16 @@ class GenericTextFormField extends StatelessWidget {
           keyboardType: inputType,
           enabled: !isBusy,
           cursorColor: PRIMARY_COLOR,
-          validator: (String value) {
-            if (isRequired && value == '') {
-              return ERR_REQUIRED_MSG;
-            }
-            if (inputType == TextInputType.emailAddress && !EmailValidator.validate(value)) {
-              return ERR_INVALID_EMAIL;
-            }
-            return null;
-          },
+          validator: validator ??
+              (String value) {
+                if (isRequired && value == '') {
+                  return ERR_REQUIRED_MSG;
+                }
+                if (inputType == TextInputType.emailAddress && !EmailValidator.validate(value)) {
+                  return ERR_INVALID_EMAIL;
+                }
+                return null;
+              },
           controller: editingController,
           obscureText: obscureText,
           decoration: InputDecoration(

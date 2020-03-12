@@ -1,3 +1,4 @@
+import 'package:class_room_app/core/widgets/document.dart';
 import 'package:class_room_app/core/widgets/generic_button.dart';
 import 'package:class_room_app/core/constants/color_constant.dart';
 import 'package:class_room_app/core/widgets/generic_text_form_field.dart';
@@ -5,6 +6,9 @@ import 'package:class_room_app/feature/student/domain/entities/student_entity.da
 import 'package:class_room_app/feature/student/presentation/state/student_store.dart';
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pdf;
+import 'package:printing/printing.dart';
 
 class AddEditStudentPage extends StatefulWidget {
   AddEditStudentPage({Key key, @required this.title}) : super(key: key);
@@ -54,6 +58,12 @@ class _AddEditStudentPageState extends State<AddEditStudentPage> {
                     isRequired: true,
                     editingController: _fullnameController,
                     label: 'Fullname',
+                    validator: (String val) {
+                      if (val.length <= 0) {
+                        return 'this field must be greater than char length';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(
                     height: 16,
@@ -99,7 +109,10 @@ class _AddEditStudentPageState extends State<AddEditStudentPage> {
                   SizedBox(
                     child: GenericButton(
                       label: 'Save',
-                      onClick: () {
+                      onClick: () async {
+                        Printing.layoutPdf(
+                          onLayout: generateDocument,
+                        );
                         if (_formKey.currentState.validate()) {
                           final reactiveModel = Injector.getAsReactive<StudentStore>();
                           reactiveModel.setState(

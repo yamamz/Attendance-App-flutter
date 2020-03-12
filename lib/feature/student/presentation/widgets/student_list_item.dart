@@ -32,7 +32,7 @@ class StudentListItem extends StatelessWidget {
         onTap: () {},
         subtitle: Text(studentEntity.fullname),
         leading: CircleAvatar(
-          backgroundColor: getColorByinitial(studentEntity.fullname.substring(0, 1)),
+          backgroundColor: getColorByinitial(studentEntity.fullname.substring(1, 2)),
           child: Text(studentEntity.fullname.substring(0, 1)),
         ),
         title: Text('#00-${studentEntity.key.toString()}'),
