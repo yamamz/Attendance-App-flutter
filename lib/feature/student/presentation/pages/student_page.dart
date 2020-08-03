@@ -57,6 +57,11 @@ class _StudentPageState extends State<StudentPage> {
               onError: (_) => _initialState(),
             );
           }),
+
+
+
+
+
     );
   }
 
@@ -87,10 +92,14 @@ class _StudentPageState extends State<StudentPage> {
 
   Widget hasDataState(StudentStore store) {
     if (store.students != null && store.students.isNotEmpty) {
-      return ListView.builder(
+      return ListView.separated(
         itemCount: store.students.length,
         itemBuilder: (context, index) {
-          return StudentListItem(studentEntity: store.students[index], index: index);
+          return StudentListItem(
+              studentEntity: store.students[index], index: index);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 2);
         },
       );
     } else {

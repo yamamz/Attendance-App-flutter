@@ -1,18 +1,18 @@
-import 'package:class_room_app/core/constants/color_constant.dart';
-import 'package:class_room_app/feature/student/presentation/state/student_store.dart';
-import 'package:class_room_app/feature/subject/domain/entities/subject_entity.dart';
-import 'package:class_room_app/feature/subject/presentation/pages/add_subject_page.dart';
-import 'package:class_room_app/feature/subject/presentation/state/subject_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:getflutter/components/avatar/gf_avatar.dart';
-import 'package:getflutter/components/list_tile/gf_list_tile.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+
+import '../../../../core/constants/color_constant.dart';
+import '../../domain/entities/subject_entity.dart';
+import '../pages/add_subject_page.dart';
+
+import '../state/subject_store.dart';
 
 class SubjectListItem extends StatelessWidget {
   final SubjectEntity subjectEntity;
   final int index;
-  const SubjectListItem({Key key, this.subjectEntity, this.index}) : super(key: key);
+  const SubjectListItem({Key key, this.subjectEntity, this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +54,14 @@ class SubjectListItem extends StatelessWidget {
                   top: 0,
                   bottom: 0,
                   child: LayoutBuilder(
-                    builder: (BuildContext context, BoxConstraints boxConstraints) {
+                    builder:
+                        (BuildContext context, BoxConstraints boxConstraints) {
                       return Material(
                         color: PRIMARY_COLOR,
                         shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.only(topLeft: Radius.circular(16), bottomLeft: Radius.circular(16))),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                bottomLeft: Radius.circular(16))),
                         child: SizedBox(
                           height: boxConstraints.maxHeight,
                           width: 54,
@@ -92,7 +94,8 @@ class SubjectListItem extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             subjectEntity.name,
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                         ],
                       )

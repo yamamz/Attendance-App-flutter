@@ -1,11 +1,15 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:class_room_app/feature/attendance/presentation/pages/attendance_page.dart';
 import 'package:class_room_app/feature/attendance/presentation/state/attendance_store.dart';
 import 'package:class_room_app/feature/subject/presentation/state/subject_store.dart';
+import 'package:downloads_path_provider/downloads_path_provider.dart';
+import 'package:excel/excel.dart';
+import 'package:flashy_tab_bar/flashy_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:getflutter/components/avatar/gf_avatar.dart';
 import 'package:class_room_app/core/constants/color_constant.dart';
-import 'package:getflutter/components/tabs/gf_tabbar.dart';
-import 'package:getflutter/components/tabs/gf_tabbar_view.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class ManageAttendancePage extends StatefulWidget {
@@ -15,8 +19,11 @@ class ManageAttendancePage extends StatefulWidget {
   _ManageAttendancePageState createState() => _ManageAttendancePageState();
 }
 
-class _ManageAttendancePageState extends State<ManageAttendancePage> with SingleTickerProviderStateMixin {
+class _ManageAttendancePageState extends State<ManageAttendancePage>
+    with SingleTickerProviderStateMixin {
   TabController tabController;
+  int _selectedIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -40,58 +47,87 @@ class _ManageAttendancePageState extends State<ManageAttendancePage> with Single
 
   @override
   Widget build(BuildContext context) {
+    final items = [
+      StateBuilder<SubjectStore>(
+          models: [Injector.getAsReactive<SubjectStore>()],
+          builder: (context, reactiveModel) {
+            return reactiveModel.whenConnectionState(
+              onIdle: () => _initialState(),
+              onWaiting: () => _loadingState(),
+              onData: (store) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: hasDataState(store),
+              ),
+              onError: (_) => _initialState(),
+            );
+          }),
+      StateBuilder<AttendanceStore>(
+          models: [Injector.getAsReactive<AttendanceStore>()],
+          builder: (context, reactiveModel) {
+            return reactiveModel.whenConnectionState(
+              onIdle: () => _initialState(),
+              onWaiting: () => _loadingState(),
+              onData: (store) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: hasDataAttendanceLogState(store),
+              ),
+              onError: (_) => _initialState(),
+            );
+          }),
+      Container(
+        child: Center(
+          child: IconButton(
+              icon: Icon(Icons.list),
+              onPressed: () async {
+                Excel excel = Excel.createExcel();
+                Sheet sheetObject = excel['Sheet1'];
+                List<String> dataList = [
+                  "Google",
+                  "loves",
+                  "Flutter",
+                  "and",
+                  "Flutter",
+                  "loves",
+                  "Google"
+                ];
+
+                sheetObject.insertRowIterables(dataList, 8);
+                Directory downloadsDirectory =
+                    await DownloadsPathProvider.downloadsDirectory;
+                String appDocPath = downloadsDirectory.path;
+                Uint8List excelEncoded = await excel.encode();
+                File("$appDocPath/attendance_report.xlsx")
+                  ..createSync(recursive: true)
+                  ..writeAsBytesSync(excelEncoded);
+              }),
+        ),
+      ),
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text('Manage Attendance'),
       ),
-      body: GFTabBarView(
-        controller: tabController,
-        children: <Widget>[
-          StateBuilder<SubjectStore>(
-              models: [Injector.getAsReactive<SubjectStore>()],
-              builder: (context, reactiveModel) {
-                return reactiveModel.whenConnectionState(
-                  onIdle: () => _initialState(),
-                  onWaiting: () => _loadingState(),
-                  onData: (store) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: hasDataState(store),
-                  ),
-                  onError: (_) => _initialState(),
-                );
-              }),
-          StateBuilder<AttendanceStore>(
-              models: [Injector.getAsReactive<AttendanceStore>()],
-              builder: (context, reactiveModel) {
-                return reactiveModel.whenConnectionState(
-                  onIdle: () => _initialState(),
-                  onWaiting: () => _loadingState(),
-                  onData: (store) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: hasDataAttendanceLogState(store),
-                  ),
-                  onError: (_) => _initialState(),
-                );
-              }),
-        ],
-      ),
-      bottomNavigationBar: GFTabBar(
-        tabBarColor: Colors.white,
-        initialIndex: 0,
-        length: 2,
-        controller: tabController,
-        tabs: [
-          Tab(
-            child: Text(
-              "Manage attendance",
-              style: TextStyle(color: Colors.black87),
-            ),
+      body: items.elementAt(_selectedIndex),
+      bottomNavigationBar: FlashyTabBar(
+        selectedIndex: _selectedIndex,
+        showElevation: true,
+        onItemSelected: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: [
+          FlashyTabBarItem(
+            icon: Icon(Icons.event),
+            title: Text('Attendance'),
           ),
-          Tab(
-            child: Text(
-              "Attendance Log",
-              style: TextStyle(color: Colors.black87),
-            ),
+          FlashyTabBarItem(
+            icon: Icon(Icons.list),
+            title: Text('Logs'),
+          ),
+          FlashyTabBarItem(
+            icon: Icon(Icons.grid_on),
+            title: Text('export to excel'),
           ),
         ],
       ),
@@ -108,7 +144,7 @@ class _ManageAttendancePageState extends State<ManageAttendancePage> with Single
               'assets/images/log.png',
               height: 100,
             ),
-            Text('Empty Student List', style: TextStyle(color: PRIMARY_COLOR))
+            Text('Empty List', style: TextStyle(color: PRIMARY_COLOR))
           ],
         ),
       ),

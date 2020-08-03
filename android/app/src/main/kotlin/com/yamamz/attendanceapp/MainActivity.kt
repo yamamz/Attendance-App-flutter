@@ -1,4 +1,4 @@
-package com.example.class_room_app
+package com.yamamz.attendanceapp
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

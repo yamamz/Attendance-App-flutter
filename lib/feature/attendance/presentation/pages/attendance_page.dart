@@ -14,7 +14,8 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
 class AttendancePage extends StatefulWidget {
-  AttendancePage({Key key, this.subjectEntity, this.attendanceEntity}) : super(key: key);
+  AttendancePage({Key key, this.subjectEntity, this.attendanceEntity})
+      : super(key: key);
   final SubjectEntity subjectEntity;
   final AttendanceEntity attendanceEntity;
 
@@ -55,7 +56,9 @@ class _AttendancePageState extends State<AttendancePage> {
           if (widget.attendanceEntity == null) {
             print('not exist');
             if (reactiveModel.state.attendance
-                .where((a) => a.date == attyDate && a.subjectEntity.key == widget.subjectEntity.key)
+                .where((a) =>
+                    a.date == attyDate &&
+                    a.subjectEntity.key == widget.subjectEntity.key)
                 .isEmpty) {
               reactiveModel.setState(
                 (store) => store.saveAttendance(attendance),
@@ -66,21 +69,30 @@ class _AttendancePageState extends State<AttendancePage> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                     title: Text(
                       'Confirmation',
-                      style: const TextStyle(color: PRIMARY_COLOR, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          color: PRIMARY_COLOR, fontWeight: FontWeight.bold),
                     ),
-                    content: Text('You have log on this date. Do want to proceed in saving'),
+                    content: Text(
+                        'You have log on this date. Do want to proceed in saving'),
                     actions: <Widget>[
                       FlatButton(
-                        child: Text('No', style: const TextStyle(color: PRIMARY_COLOR, fontWeight: FontWeight.bold)),
+                        child: Text('No',
+                            style: const TextStyle(
+                                color: PRIMARY_COLOR,
+                                fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).pop(false);
                         },
                       ),
                       FlatButton(
-                        child: Text('Yes', style: const TextStyle(color: PRIMARY_COLOR, fontWeight: FontWeight.bold)),
+                        child: Text('Yes',
+                            style: const TextStyle(
+                                color: PRIMARY_COLOR,
+                                fontWeight: FontWeight.bold)),
                         onPressed: () {
                           reactiveModel.setState(
                             (store) => store.saveAttendance(attendance),
@@ -137,9 +149,10 @@ class _AttendancePageState extends State<AttendancePage> {
                     icon: Icon(Icons.camera),
                     onPressed: () async {
                       String cameraScanResult = await scanner.scan();
-                      attendances.firstWhere((a) => a['student'].key == int.parse(cameraScanResult)).update('status',
-                          (update) {
-                        print('ddst' + update.toString());
+                      attendances
+                          .firstWhere((a) =>
+                              a['student'].key == int.parse(cameraScanResult))
+                          .update('status', (update) {
                         return 0;
                       });
                       setState(() {});
@@ -171,7 +184,10 @@ class _AttendancePageState extends State<AttendancePage> {
                         ),
                         Text(
                           '${DateFormat('dd').format(DateTime.parse(attyDate))}',
-                          style: TextStyle(fontSize: 116, color: Colors.white, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 116,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -188,8 +204,10 @@ class _AttendancePageState extends State<AttendancePage> {
           itemBuilder: (context, index) {
             if (widget.attendanceEntity != null) {
               return AttendanceItem(
-                studentEntity: widget.attendanceEntity.attendanceEntries[index]['student'],
-                index: widget.attendanceEntity.attendanceEntries[index]['status'],
+                studentEntity: widget.attendanceEntity.attendanceEntries[index]
+                    ['student'],
+                index: widget.attendanceEntity.attendanceEntries[index]
+                    ['status'],
                 selectedAttendance: (int selectedIndex) {
                   attendances[index]['status'] = selectedIndex;
                 },
@@ -204,7 +222,7 @@ class _AttendancePageState extends State<AttendancePage> {
             );
           },
           separatorBuilder: (BuildContext context, int index) {
-            return const Divider(height: 4);
+            return const Divider(height: 2);
           },
         ),
       ),

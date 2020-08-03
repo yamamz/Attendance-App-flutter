@@ -7,7 +7,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class StudentListItem extends StatelessWidget {
-  const StudentListItem({Key key, @required this.studentEntity, this.index}) : super(key: key);
+  const StudentListItem({Key key, @required this.studentEntity, this.index})
+      : super(key: key);
   final StudentEntity studentEntity;
   final int index;
   Widget build(BuildContext context) {
@@ -32,10 +33,11 @@ class StudentListItem extends StatelessWidget {
         onTap: () {},
         subtitle: Text(studentEntity.fullname),
         leading: CircleAvatar(
-          backgroundColor: getColorByinitial(studentEntity.fullname.substring(1, 2)),
+          backgroundColor:
+              getColorByinitial(studentEntity.fullname.substring(1, 2)),
           child: Text(studentEntity.fullname.substring(0, 1)),
         ),
-        title: Text('#00-${studentEntity.key.toString()}'),
+        title: Text('ID:${studentEntity.key.toString()}'),
       ),
     );
   }

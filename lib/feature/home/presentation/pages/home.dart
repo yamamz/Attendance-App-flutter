@@ -31,7 +31,8 @@ class Home extends StatelessWidget {
                   ),
                   Text(
                     'Welcome',
-                    style: TextStyle(color: Colors.white, fontSize: SIZE_VALUE_40),
+                    style:
+                        TextStyle(color: Colors.white, fontSize: SIZE_VALUE_40),
                   )
                 ],
               ),
@@ -44,7 +45,8 @@ class Home extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
                         return StudentPage();
                       }));
                     },
@@ -59,7 +61,9 @@ class Home extends StatelessWidget {
                         ),
                         Text(
                           'Manage Student',
-                          style: TextStyle(fontWeight: FontWeight.bold, color: PRIMARY_COLOR),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: PRIMARY_COLOR),
                         )
                       ],
                     ),
@@ -68,7 +72,8 @@ class Home extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
                         return SubjectPage();
                       }));
                     },
@@ -102,7 +107,8 @@ class Home extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
                         return ManageAttendancePage();
                       }));
                     },
@@ -117,7 +123,9 @@ class Home extends StatelessWidget {
                         ),
                         Text(
                           'Manage Attendance',
-                          style: TextStyle(fontWeight: FontWeight.bold, color: PRIMARY_COLOR),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: PRIMARY_COLOR),
                         )
                       ],
                     ),
@@ -126,7 +134,8 @@ class Home extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
                         return GenerateQrPage();
                       }));
                     },
@@ -140,7 +149,7 @@ class Home extends StatelessWidget {
                           height: 16,
                         ),
                         Text(
-                          'Qr Manager',
+                          'Student Id Generate Qr',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: PRIMARY_COLOR,

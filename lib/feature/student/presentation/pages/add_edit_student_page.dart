@@ -1,9 +1,9 @@
-import 'package:class_room_app/core/widgets/document.dart';
-import 'package:class_room_app/core/widgets/generic_button.dart';
-import 'package:class_room_app/core/constants/color_constant.dart';
-import 'package:class_room_app/core/widgets/generic_text_form_field.dart';
-import 'package:class_room_app/feature/student/domain/entities/student_entity.dart';
-import 'package:class_room_app/feature/student/presentation/state/student_store.dart';
+import '../../../../core/widgets/document.dart';
+import '../../../../core/widgets/generic_button.dart';
+import '../../../../core/constants/color_constant.dart';
+import '../../../../core/widgets/generic_text_form_field.dart';
+import '../../domain/entities/student_entity.dart';
+import '../state/student_store.dart';
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:pdf/pdf.dart';
@@ -104,23 +104,25 @@ class _AddEditStudentPageState extends State<AddEditStudentPage> {
                   SizedBox(
                     height: 16,
                   ),
-                  Text('Curreces'),
                   Spacer(),
                   SizedBox(
                     child: GenericButton(
                       label: 'Save',
                       onClick: () async {
-                        Printing.layoutPdf(
-                          onLayout: generateDocument,
-                        );
+                        // Printing.layoutPdf(
+                        //   onLayout: generateDocument,
+                        // );
                         if (_formKey.currentState.validate()) {
-                          final reactiveModel = Injector.getAsReactive<StudentStore>();
+                          final reactiveModel =
+                              Injector.getAsReactive<StudentStore>();
                           reactiveModel.setState(
                             (store) => store.saveStudent(StudentEntity(
                               fullname: _fullnameController.text,
                               address: _addressController.text,
                               mobile: _mobileController.text,
-                              age: int.parse((_ageController.text == '') ? '0' : _ageController.text),
+                              age: int.parse((_ageController.text == '')
+                                  ? '0'
+                                  : _ageController.text),
                               email: _emailController.text,
                             )),
                             onError: (context, error) {
