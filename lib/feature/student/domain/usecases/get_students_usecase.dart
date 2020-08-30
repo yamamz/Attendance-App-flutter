@@ -7,8 +7,7 @@ import 'package:class_room_app/injection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
-@lazySingleton
-@Environment(Env.prod)
+@LazySingleton(env: ['prod'])
 class GetStudentsUsecase implements Usecase<List<StudentEntity>, NoParams> {
   final StudentRepository studentRepository;
   GetStudentsUsecase({@required this.studentRepository});

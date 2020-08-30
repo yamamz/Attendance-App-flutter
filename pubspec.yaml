@@ -11,29 +11,28 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 2.0.0+10
 
 environment:
   sdk: ">=2.8.0 <3.0.0"
 
 dependency_overrides:
-  dartx: ^0.3.0
   xml: ^4.1.0
   petitparser: ^3.0.0
+  analyzer: 0.39.14
 dependencies:
   flutter:
     sdk: flutter
     
   states_rebuilder: ^1.14.2
-  dartx: ^0.4.2
   data_connection_checker: ^0.3.4
-  get_it: ^3.0.3
+  get_it: 
   retrofit: any
   logger: any
   flutter_slidable: "^0.5.4"
   qrscan: ^0.2.17
   getflutter: ^1.0.5
-  injectable: ^0.2.3
+  injectable: ^1.0.4
   path_provider: ^1.6.1
   equatable: ^1.1.0
   hive: ^1.4.1+1
@@ -45,8 +44,13 @@ dependencies:
   printing: ^3.1.0
   flashy_tab_bar: ^0.0.3
   excel: ^1.1.4
-  downloads_path_provider: ^0.1.0
   share_extend: "^1.1.9"
+  datetime_picker_formfield: ^1.0.0
+  google_fonts: ^1.1.0
+  flutter_icons: ^1.1.0
+  stacked: ^1.7.6
+  stacked_services: ^0.5.2
+  auto_route: ^0.6.7
  
   
 
@@ -57,11 +61,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  auto_route_generator:
   retrofit_generator: any
   flutter_launcher_icons: ^0.7.3
-  build_runner: any
-  injectable_generator: ^0.2.3
+  build_runner: ^1.10.0
+  injectable_generator: 
   hive_generator: ^0.7.0+2
+  build_resolvers: ^1.3.10
 flutter_icons:
   android: "launcher_icon"
   ios: true

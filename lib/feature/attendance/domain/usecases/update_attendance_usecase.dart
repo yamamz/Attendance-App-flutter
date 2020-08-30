@@ -5,9 +5,9 @@ import 'package:class_room_app/injection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
-@lazySingleton
-@Environment(Env.prod)
-class UpdateAttendanceUsecase implements Usecase<AttendanceEntity, UpdateAttendanceParams> {
+@LazySingleton(env: ['prod'])
+class UpdateAttendanceUsecase
+    implements Usecase<AttendanceEntity, UpdateAttendanceParams> {
   final AttendanceRepository attendanceRepository;
 
   UpdateAttendanceUsecase({@required this.attendanceRepository});

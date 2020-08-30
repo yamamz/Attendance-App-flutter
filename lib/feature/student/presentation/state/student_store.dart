@@ -8,14 +8,15 @@ import 'package:class_room_app/injection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
-@injectable
-@Environment(Env.prod)
+@Injectable(env: ['prod'])
 class StudentStore {
   final GetStudentsUsecase getStudentsUsecase;
   final SaveStudentUsecase saveStudentUsecase;
   final DeleteStudentUsecase deleteStudentUsecase;
   StudentStore(
-      {@required this.getStudentsUsecase, @required this.saveStudentUsecase, @required this.deleteStudentUsecase});
+      {@required this.getStudentsUsecase,
+      @required this.saveStudentUsecase,
+      @required this.deleteStudentUsecase});
 
   List<StudentEntity> _students;
   List<StudentEntity> get students => _students;

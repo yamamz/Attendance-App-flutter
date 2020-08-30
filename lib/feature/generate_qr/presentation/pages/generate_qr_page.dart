@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:downloads_path_provider/downloads_path_provider.dart';
+import 'package:class_room_app/core/utils/download_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';

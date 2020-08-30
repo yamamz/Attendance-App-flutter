@@ -5,8 +5,7 @@ import 'package:class_room_app/injection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
-@lazySingleton
-@Environment(Env.prod)
+@LazySingleton(env: ['prod'])
 class DeleteStudentUsecase implements Usecase<bool, DeleteStudentParams> {
   final StudentRepository studentRepository;
 

@@ -5,8 +5,7 @@ import 'package:class_room_app/injection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
-@lazySingleton
-@Environment(Env.prod)
+@LazySingleton(env: ['prod'])
 class GetSubjectsUsecase implements Usecase<List<SubjectEntity>, NoParams> {
   final SubjectRepository subjectRepository;
   GetSubjectsUsecase({@required this.subjectRepository});

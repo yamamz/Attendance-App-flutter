@@ -1,6 +1,8 @@
+import 'package:class_room_app/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 import 'core/constants/color_constant.dart';
@@ -22,7 +24,7 @@ void main() async {
   Hive.registerAdapter(StudentEntityAdapter());
   Hive.registerAdapter(SubjectEntityAdapter());
   Hive.registerAdapter(AttendanceEntityAdapter());
-  configureInjection(Env.prod);
+  configureInjection('prod');
   runApp(MyApp());
 }
 
@@ -36,11 +38,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'NunitoSans',
-        accentColor: Colors.blue,
         cursorColor: PRIMARY_COLOR,
         toggleableActiveColor: PRIMARY_COLOR,
         primaryColor: PRIMARY_COLOR,
       ),
+      navigatorKey: getIt<NavigationService>().navigatorKey,
+      onGenerateRoute: Router().onGenerateRoute,
       home: Injector(
         inject: [
           Inject<StudentStore>(

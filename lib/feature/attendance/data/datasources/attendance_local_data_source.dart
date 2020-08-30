@@ -11,16 +11,15 @@ abstract class AttendanceLocalDataSource {
   Future<List<AttendanceEntity>> getAttendances();
 }
 
-@lazySingleton
-@RegisterAs(AttendanceLocalDataSource)
-@Environment(Env.prod)
+@LazySingleton(as: AttendanceLocalDataSource, env: ['prod'])
 class AttendanceLocalDataSourceImpl implements AttendanceLocalDataSource {
   final AttendanceDao attendanceDao;
 
   AttendanceLocalDataSourceImpl({this.attendanceDao});
 
   @override
-  Future<AttendanceEntity> saveAttendance(AttendanceEntity attendanceEntity) async {
+  Future<AttendanceEntity> saveAttendance(
+      AttendanceEntity attendanceEntity) async {
     try {
       return await attendanceDao.insert(attendanceEntity);
     } catch (_) {
@@ -38,7 +37,8 @@ class AttendanceLocalDataSourceImpl implements AttendanceLocalDataSource {
   }
 
   @override
-  Future<AttendanceEntity> updateAttendance(UpdateAttendanceParams params) async {
+  Future<AttendanceEntity> updateAttendance(
+      UpdateAttendanceParams params) async {
     try {
       return await attendanceDao.update(params);
     } catch (_) {

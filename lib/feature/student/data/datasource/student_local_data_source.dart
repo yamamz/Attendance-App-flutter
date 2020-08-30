@@ -11,9 +11,7 @@ abstract class StudentLocalDataSource {
   Future<bool> deleteStudent(DeleteStudentParams params);
 }
 
-@RegisterAs(StudentLocalDataSource)
-@lazySingleton
-@Environment(Env.prod)
+@LazySingleton(as: StudentLocalDataSource, env: ['prod'])
 class StudentLocalDataSourceImpl implements StudentLocalDataSource {
   final StudentDao studentDao;
 

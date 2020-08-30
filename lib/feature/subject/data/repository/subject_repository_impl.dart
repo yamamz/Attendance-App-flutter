@@ -8,9 +8,7 @@ import 'package:class_room_app/injection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
-@RegisterAs(SubjectRepository)
-@lazySingleton
-@Environment(Env.prod)
+@LazySingleton(as: SubjectRepository, env: ['prod'])
 class SubjectRepositotryImpl implements SubjectRepository {
   final SubjectLocalDataSource subjectLocalDataSource;
   SubjectRepositotryImpl({@required this.subjectLocalDataSource});

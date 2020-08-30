@@ -8,8 +8,7 @@ import 'package:class_room_app/injection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
-@injectable
-@Environment(Env.prod)
+@Injectable(env: ['prod'])
 class AttendanceStore {
   final SaveAttendanceUsecase saveAttendanceUsecase;
   final GetAttendancesUsecase getAttendancesUsecase;

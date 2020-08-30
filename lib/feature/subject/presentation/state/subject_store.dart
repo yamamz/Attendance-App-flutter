@@ -9,8 +9,7 @@ import 'package:class_room_app/injection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
-@injectable
-@Environment(Env.prod)
+@Injectable(env: ['prod'])
 class SubjectStore {
   final GetSubjectsUsecase getSubjectsUsecase;
   final SaveSubjectUsecase saveSubjectUsecase;
@@ -34,7 +33,8 @@ class SubjectStore {
     if (index == null) {
       await saveSubjectUsecase(subjectModel);
     } else {
-      await updateSubjectUsecase(UpdateSubjectParams(index: index, subjectEntity: subjectModel));
+      await updateSubjectUsecase(
+          UpdateSubjectParams(index: index, subjectEntity: subjectModel));
     }
 
     _subjects = await getSubjectsUsecase(NoParams());

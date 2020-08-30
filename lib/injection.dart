@@ -1,13 +1,9 @@
-import 'package:class_room_app/injection.iconfig.dart';
+import 'package:class_room_app/injection.config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-final getIt = GetIt.instance;
-@injectableInit
-void configureInjection(String environment) =>
-    $initGetIt(getIt, environment: environment);
+final GetIt getIt = GetIt.instance;
 
-abstract class Env {
-  static const dev = 'dev';
-  static const prod = 'prod';
-}
+@injectableInit
+Future<void> configureInjection(String enviroment) async =>
+    $initGetIt(getIt, environment: enviroment);

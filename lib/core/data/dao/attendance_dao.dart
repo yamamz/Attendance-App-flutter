@@ -4,8 +4,7 @@ import 'package:class_room_app/injection.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
-@Environment(Env.prod)
+@LazySingleton(env: ['prod'])
 class AttendanceDao {
   String boxName = 'attendances';
 
@@ -15,9 +14,11 @@ class AttendanceDao {
     return box.get(key);
   }
 
-  Future<AttendanceEntity> update(UpdateAttendanceParams updateAttendanceParams) async {
+  Future<AttendanceEntity> update(
+      UpdateAttendanceParams updateAttendanceParams) async {
     var box = await Hive.openBox<AttendanceEntity>(boxName);
-    await box.put(updateAttendanceParams.key, updateAttendanceParams.attendanceEntity);
+    await box.put(
+        updateAttendanceParams.key, updateAttendanceParams.attendanceEntity);
     return box.get(updateAttendanceParams.key);
   }
 

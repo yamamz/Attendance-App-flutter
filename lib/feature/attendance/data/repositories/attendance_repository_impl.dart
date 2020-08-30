@@ -6,9 +6,7 @@ import 'package:class_room_app/injection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
-@RegisterAs(AttendanceRepository)
-@lazySingleton
-@Environment(Env.prod)
+@LazySingleton(as: AttendanceRepository, env: ['prod'])
 class AttendanceRepositoryImpl implements AttendanceRepository {
   final AttendanceLocalDataSource attendanceLocalDataSource;
 
@@ -19,12 +17,14 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   }
 
   @override
-  Future<AttendanceEntity> saveAttendance(AttendanceEntity attendanceEntity) async {
+  Future<AttendanceEntity> saveAttendance(
+      AttendanceEntity attendanceEntity) async {
     return await attendanceLocalDataSource.saveAttendance(attendanceEntity);
   }
 
   @override
-  Future<AttendanceEntity> updateAttendance(UpdateAttendanceParams params) async {
+  Future<AttendanceEntity> updateAttendance(
+      UpdateAttendanceParams params) async {
     return await attendanceLocalDataSource.updateAttendance(params);
   }
 }

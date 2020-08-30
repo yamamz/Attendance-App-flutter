@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:class_room_app/core/utils/download_path_provider.dart';
 import 'package:class_room_app/feature/attendance/presentation/pages/attendance_page.dart';
 import 'package:class_room_app/feature/attendance/presentation/state/attendance_store.dart';
 import 'package:class_room_app/feature/subject/presentation/state/subject_store.dart';
-import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:excel/excel.dart';
 import 'package:flashy_tab_bar/flashy_tab_bar.dart';
 import 'package:flutter/material.dart';

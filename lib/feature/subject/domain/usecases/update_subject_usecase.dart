@@ -5,9 +5,9 @@ import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import '../../../../injection.dart';
 
-@lazySingleton
-@Environment(Env.prod)
-class UpdateSubjectUsecase implements Usecase<SubjectEntity, UpdateSubjectParams> {
+@LazySingleton(env: ['prod'])
+class UpdateSubjectUsecase
+    implements Usecase<SubjectEntity, UpdateSubjectParams> {
   final SubjectRepository subjectRepository;
 
   UpdateSubjectUsecase({@required this.subjectRepository});

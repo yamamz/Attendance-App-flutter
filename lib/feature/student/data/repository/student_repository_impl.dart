@@ -11,9 +11,7 @@ import 'package:class_room_app/injection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
-@RegisterAs(StudentRepository)
-@lazySingleton
-@Environment(Env.prod)
+@LazySingleton(as: StudentRepository, env: ['prod'])
 class StudentRepositotryImpl implements StudentRepository {
   final StudentLocalDataSource studentLocalDataSource;
   StudentRepositotryImpl({@required this.studentLocalDataSource});

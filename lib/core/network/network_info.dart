@@ -7,8 +7,7 @@ abstract class NetworkInfo {
   Future<bool> get isConnected;
 }
 
-@RegisterAs(NetworkInfo, env: Env.prod)
-@lazySingleton
+@LazySingleton(as: NetworkInfo, env: ['prod'])
 class NetworkInfoImpl implements NetworkInfo {
   NetworkInfoImpl({@required this.dataConnectionChecker});
 

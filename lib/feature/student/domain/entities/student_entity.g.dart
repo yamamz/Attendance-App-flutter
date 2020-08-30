@@ -8,13 +8,13 @@ part of 'student_entity.dart';
 
 class StudentEntityAdapter extends TypeAdapter<StudentEntity> {
   @override
-  final typeId = 0;
+  final int typeId = 0;
 
   @override
   StudentEntity read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return StudentEntity(
       fullname: fields[0] as String,
@@ -40,4 +40,14 @@ class StudentEntityAdapter extends TypeAdapter<StudentEntity> {
       ..writeByte(4)
       ..write(obj.email);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is StudentEntityAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

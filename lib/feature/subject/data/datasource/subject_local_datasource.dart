@@ -15,9 +15,7 @@ abstract class SubjectLocalDataSource {
   Future<bool> deleteSubject(DeleteSubjectParams params);
 }
 
-@RegisterAs(SubjectLocalDataSource)
-@lazySingleton
-@Environment(Env.prod)
+@LazySingleton(as: SubjectLocalDataSource, env: ['prod'])
 class SubjectLocalDataSourceImpl implements SubjectLocalDataSource {
   final SubjectDao subjectDao;
 
